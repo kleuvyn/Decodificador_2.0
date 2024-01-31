@@ -1,59 +1,76 @@
-const switchModal = () => {
-    const modal = document.querySelector('.modal')
-    const actualStyle = modal.style.display
-    if(actualStyle == 'block') {
-      modal.style.display = 'none'
-    } else {
-      modal.style.display = 'block'
+const areaTexto = document.querySelector(".area-texto");
+const mensagemTexto = document.querySelector(".mensagem-texto");
+
+// As "chaves" de criptografia que utilizaremos são:
+// `A letra "e" é convertida para "entrer"`
+// `A letra "i" é convertida para "ymes"`
+// `A letra "a" é convertida para "uai"`
+// `A letra "o" é convertida para "0ouber"`
+// `A letra "u" é convertida para "wufat"`
+
+function botaoCriptografar() {
+    const textoCriptografado = criptografar(areaTexto.value);
+    mensagemTexto.value = textoCriptografado;
+    areaTexto.value = "";
+}
+
+
+function criptografar(stringcriptografar) {
+    console.log("Criptografando...");
+    let matrizCodigo = [["e" , "enter"] , ["i" , "imes"], ["a" ,"ai"] , ["o" , "ober"], ["u" , "ufat"]];
+    stringcriptografar = stringcriptografar.toLowerCase();
+
+    for(let i = 0; i < matrizCodigo.length; i++) {
+        if(stringcriptografar.includes(matrizCodigo[i][0])) {
+            stringcriptografar = stringcriptografar.replaceAll(matrizCodigo[i][0], matrizCodigo[i][1]);
+        }
     }
-  }
-  
-  const btnConfirmar = document.getElementById('confirmarBtn');
-  btnConfirmar.addEventListener('click', function() {
-    const valores = obterValoresFormulario();
-    const corpoEmail = construirCorpoEmail(valores);
-    const assunto = 'Nova mensagem de contato';
-  
-    const mailtoLink = `mailto:b.kleuvyn@gmail.com?subject=${encodeURIComponent(
-      assunto
-    )}&body=${encodeURIComponent(corpoEmail)}`;
-  
-    window.location.href = mailtoLink;
-  
-    switchModal(); 
-  });
-  
-  window.onclick = function(event) {
-    const modal = document.querySelector('.modal')
-    if (event.target == modal) {
-      switchModal();
+
+    return stringcriptografar;
+}
+
+
+function botaoDescriptografar() {
+    console.log("Descriptografando...");
+    const textoDesencriptado = descriptografar(areaTexto.value);
+    mensagemTexto.value = textoDesencriptado;
+    areaTexto.value = "";
+}
+
+
+function descriptografar(stringDesencriptado) {
+
+    let matrizCodigo = [["e" , "enter"] , ["i" , "imes"], ["a" ,"ai"] , ["o" , "ober"], ["u" , "ufat"]];
+    stringDesencriptado = stringDesencriptado.toLowerCase();
+
+    for(let i = 0; i < matrizCodigo.length; i++) {
+        if(stringDesencriptado.includes(matrizCodigo[i][1])) {
+            stringDesencriptado = stringDesencriptado.replaceAll(matrizCodigo[i][1], matrizCodigo[i][0]);
+        }
     }
-  }
-  
-  function obterValoresFormulario() {
-    const nome = document.getElementById('texto').value;
-    const telefone = document.getElementById('telefone').value;
-    const hora = document.getElementById('hora').value;
-    const primeiroContatoSim = document.getElementById('sim').checked;
-    const primeiroContatoNao = document.getElementById('nao').checked;
-    const mensagem = document.getElementById('mensagem').value;
-  
-    return {
-      nome,
-      telefone,
-      hora,
-      primeiroContatoSim,
-      primeiroContatoNao,
-      mensagem,
-    };
-  }
-  
-  function construirCorpoEmail(valores) {
-    return `
-      Nome: ${valores.nome}
-      Telefone: ${valores.telefone}
-      Horário para entrar em contato: ${valores.hora}
-      Primeiro Contato: ${valores.primeiroContatoSim ? 'Sim' : 'Não'}
-      Mensagem: ${valores.mensagem}
-    `;
-  }
+
+    return stringDesencriptado;
+}
+
+
+function botaoCopiar() {
+    console.log("Copiando...");
+    const copiarTexto = copiar(mensagemTexto.value);
+    areaTexto.value = copiarTexto;
+    mensagemTexto.value = "";
+}
+
+
+function copiar(stringcopiando) {
+
+    let matrizCodigo = [["e" , "enter"] , ["i" , "imes"], ["a" ,"ai"] , ["o" , "ober"], ["u" , "ufat"]];
+    stringcopiando = stringcopiando.toLowerCase();
+
+    for(let i = 0; i < matrizCodigo.length; i++) {
+        if(stringcopiando.includes(matrizCodigo[i][0])) {
+            stringcopiando = stringcopiando.replaceAll(matrizCodigo[i][0], matrizCodigo[i][0]);
+        }
+    }
+
+    return stringcopiando;
+}
